@@ -1,5 +1,7 @@
 package com.example.dguastaf.playground.Networking;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
@@ -27,25 +29,24 @@ public class FeedDataManager {
         feedApi = retrofit.create(FeedApiInterface.class);
     }
 
-    public void getFeed(final FeedDataManagerCallback<List<FeedItem>> callback) {
+    public LiveData<List<FeedItem>> getFeed() {
+
+        final MutableLiveData<List<FeedItem>> liveData = new MutableLiveData<>();
 
         feedApi.getFeedItems().enqueue(new Callback<List<FeedItem>>() {
             @Override
             public void onResponse(Call<List<FeedItem>> call, Response<List<FeedItem>> response) {
                 // Write to DB, cache, etc
-                callback.onCompletion(response.body());
+                liveData.setValue(response.body());
             }
 
             @Override
             public void onFailure(Call<List<FeedItem>> call, Throwable t) {
                 Log.e(FeedDataManager.class.getSimpleName(), t.toString());
-                callback.onCompletion(null);
             }
         });
-    }
 
-    public interface FeedDataManagerCallback<T> {
-        void onCompletion(@Nullable T data);
+        return liveData;
     }
 }
 
