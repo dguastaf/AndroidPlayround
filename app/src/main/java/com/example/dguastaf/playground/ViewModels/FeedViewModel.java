@@ -3,6 +3,7 @@ package com.example.dguastaf.playground.ViewModels;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
+import com.example.dguastaf.playground.Adapters.FeedAdapter;
 import com.example.dguastaf.playground.Models.FeedItem;
 import com.example.dguastaf.playground.Networking.FeedDataManager;
 
@@ -22,5 +23,4 @@ public class FeedViewModel extends ViewModel {
     public LiveData<List<FeedItem>> getFeed() {
         return feedItems;
     }
-
 }
