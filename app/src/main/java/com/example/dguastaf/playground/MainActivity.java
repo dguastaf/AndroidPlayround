@@ -1,14 +1,11 @@
 package com.example.dguastaf.playground;
 
-import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.example.dguastaf.playground.Adapters.FeedAdapter;
 import com.example.dguastaf.playground.Models.FeedItem;

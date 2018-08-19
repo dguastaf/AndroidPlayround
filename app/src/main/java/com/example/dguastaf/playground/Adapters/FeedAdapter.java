@@ -1,5 +1,7 @@
 package com.example.dguastaf.playground.Adapters;
 
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,13 +11,15 @@ import android.widget.TextView;
 import com.example.dguastaf.playground.Models.FeedItem;
 import com.example.dguastaf.playground.R;
 import com.example.dguastaf.playground.Views.FeedItemViewHolder;
+import com.example.dguastaf.playground.databinding.FeedItemBinding;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.Inflater;
 
 public class FeedAdapter extends RecyclerView.Adapter<FeedItemViewHolder> {
 
-    List<FeedItem> feedItems;
+    private List<FeedItem> feedItems;
 
     public FeedAdapter() {
         feedItems = new ArrayList<>();
@@ -24,15 +28,18 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedItemViewHolder> {
     @NonNull
     @Override
     public FeedItemViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        TextView t = new TextView(viewGroup.getContext());
-        t.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT));
-        return new FeedItemViewHolder(t);
+
+        LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
+        FeedItemBinding binding = DataBindingUtil.inflate(inflater,
+                R.layout.feed_item, viewGroup, false);
+
+
+        return new FeedItemViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull FeedItemViewHolder feedItemViewHolder, int i) {
-        feedItemViewHolder.getTitleLabel().setText(feedItems.get(i).getTitle());
+        feedItemViewHolder.bind(feedItems.get(i));
     }
 
     @Override
